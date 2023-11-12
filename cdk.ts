@@ -7,7 +7,7 @@ const stack = new cdk.Stack(app, 'AppStack', {
 });
 
 const bucket = new cdk.aws_s3.Bucket(stack, 'AppBucket', {
-  bucketName: 'rsBucketCdk',
+  bucketName: 'rs-bucket-cdk',
 });
 
 const originAccessIdentity = new cdk.aws_cloudfront.OriginAccessIdentity(stack, 'AppBucketOAI', {
@@ -35,7 +35,7 @@ const cloudFront = new cdk.aws_cloudfront.Distribution(stack, 'AppDistribution',
 
 new cdk.aws_s3_deployment.BucketDeployment(stack, 'DeployApp', {
   destinationBucket: bucket,
-  sources: [cdk.aws_s3_deployment.Source.asset('./build')],
+  sources: [cdk.aws_s3_deployment.Source.asset('./dist')],
   distribution: cloudFront,
   distributionPaths: ['/*'],
 });
